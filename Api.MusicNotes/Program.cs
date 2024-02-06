@@ -33,7 +33,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // Adição da dependência do EventService
 builder.Services.AddScoped<EventService>();
+
+builder.Services.AddScoped<UserService>();
+
 builder.Services.AddScoped<EventRepository>();
+
+builder.Services.AddScoped<UserRepository>();
 
 // Configuração de outros serviços
 builder.Services.AddControllers();

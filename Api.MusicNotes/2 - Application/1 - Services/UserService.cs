@@ -1,44 +1,85 @@
-﻿using Api.MusicNotes._2___Application._2___DTO_s.Events;
-using Api.MusicNotes._2___Application._2___DTO_s.User;
+﻿using Api.MusicNotes._2___Application._2___DTO_s.User;
 using Api.MusicNotes._3___Domain._1___Entities;
 using Api.MusicNotes._4___InfraData;
 using Api.MusicNotes._5___Config;
 using Api.MusicNotes._5___Config._2___Jwt;
-using Microsoft.VisualBasic;
+using Api.MusicNotes._5___Config._3___Utils;
+
 
 namespace Api.MusicNotes._2___Services
 {
 	public class UserService
 	{
+		#region Construtor
 		private readonly UserRepository _repository;
-
-		private const string MessageError = "Dados Inválidos";
 
 		public UserService(UserRepository repository)
 		{
 			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
 		}
 
+		#endregion
 
-		public async Task<string> Login(UserLoginDto request)
+		#region Metodos
+		public async Task<UserResponseLogin> Login(UserLoginDto request)
 		{
-			var user = _repository.Get(request.Email, request.Password);
+			var user =  _repository.Get(request.Email, request.Password);
 
-
-			if (request.Password != user.Password)
+			if (!IsUserValid(request, user))
 			{
-				return "Erro";
+				return CreateUserResponseInvalid(request.Email);
 			}
+
+			return CreateUserResponseAuthorized(user);
+		}
+
+
+		public async Task<object> InsertUser( UserInsertDto request)
+		{
+			if( request.Password != request.ConfirmPassword)
+			{
+				return UserLoginMessage.InvalidPassword;
+			}
+
+			var user = new User(request.Name, request.Email, request.Password.EncryptPassword()) ;
+			_repository.AddUser(user);
+			return Message.Sucess;
 			
-
-			
-			var token = TokenService.GenerateToken(user);
-
-			user.Password = "";
-
-			return token;
 			
 		}
+		#endregion
+
+		#region Metodos Privados
+		private UserResponseLogin CreateUserResponseAuthorized(User user)
+		{
+			var token = TokenService.GenerateToken(user);
+			
+			return new UserResponseLogin
+			{
+				Email = user.Email,
+				Token = token,
+				Message = UserLoginMessage.Authorized
+			};
+		}
+
+		
+
+		private bool IsUserValid(UserLoginDto request, User user)
+		{
+			return user != null && request.Email == user.Email && request.Password.EncryptPassword() == user.Password.EncryptPassword();
+		}
+
+		private UserResponseLogin CreateUserResponseInvalid(string email)
+		{
+			return new UserResponseLogin
+			{
+				Email = email,
+				Message = UserLoginMessage.InvalidCredentials
+			};
+		}
+
+		#endregion
+
 
 	}
 }

@@ -18,19 +18,33 @@ namespace Api.MusicNotes.Controllers
 			_userService = userService ?? throw new ArgumentNullException(nameof(userService));
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> Login([FromBody]UserLoginDto request)
+		[HttpPost("/login")]
+		public async Task<IActionResult> Login([FromBody] UserLoginDto request)
 		{
+			var userResponse = await _userService.Login(request);
 
-
-			var token = await _userService.Login(request);
-
-			if (token == null)
+			if (userResponse == null)
 			{
 				return NotFound(new { message = "Usuário não encontrado" });
 			}
 
-			return Ok(new { token });
+			return Ok(userResponse);
+		}
+
+
+		[HttpPost]
+		public async Task<IActionResult> InsertUser([FromBody] UserInsertDto request)
+		{
+			if (request == null)
+			{
+				return NotFound(new { message = "Dados inválidos" });
+			}
+
+			var user = await _userService.InsertUser(request);
+
+			
+
+			return Ok(user);
 		}
 	};
 	

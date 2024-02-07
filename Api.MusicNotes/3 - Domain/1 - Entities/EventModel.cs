@@ -5,13 +5,17 @@ namespace Api.MusicNotes._3___Domain._1___Entities
 {
 	public class EventModel
 	{
-		public EventModel(){}
+		public EventModel() { }
+
+		public EventModel(string name)
+		{
+			Name = name;
+		}
 
 		[Display(Name = "Id")]
 		public int Id { get; set; }
 
 		[Display(Name = "Nome")]
 		public string Name { get; set; }
-		public void Insert(string name) => Name = name;
 	}
 }

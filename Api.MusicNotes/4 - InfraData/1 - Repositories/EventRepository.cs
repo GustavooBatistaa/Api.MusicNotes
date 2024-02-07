@@ -16,6 +16,18 @@ namespace Api.MusicNotes._4___InfraData
 			return _context.Events.ToList();
 		}
 
+		public List<EventModel> Get()
+		{
+			var events = new List<EventModel>
+	{
+		new EventModel { Id = 1, Name = "Culto Oficial" },
+		new EventModel { Id = 2, Name = "Reunião de Jovens e Menores" },
+		new EventModel { Id = 3, Name = "Visita" }
+	};
+
+			return events;
+		}
+
 		public EventModel GetEventById(int eventId)
 		{
 			return _context.Events.FirstOrDefault(x => x.Id == eventId);

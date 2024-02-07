@@ -2,6 +2,7 @@
 using Api.MusicNotes._3___Domain._1___Entities;
 using Api.MusicNotes._4___InfraData;
 using Microsoft.VisualBasic;
+using System.ComponentModel;
 
 namespace Api.MusicNotes._2___Services
 {
@@ -24,11 +25,24 @@ namespace Api.MusicNotes._2___Services
 				throw new ArgumentNullException(nameof(request), MessageError);
 			}
 
-			var eventModel = new EventModel();
-
-			eventModel.Insert(request.Name);
+			var eventModel = new EventModel(request.Name);
 
 			_eventRepository.AddEvent(eventModel);
+		}
+
+		public async Task<List<EventResponse>> GetEvents()
+		{
+			var events = _eventRepository.Get(); 
+
+			var eventResponse = events.Select(eventItem => new EventResponse
+			{
+				
+				Id = eventItem.Id,
+				Name = eventItem.Name,
+				
+			}).ToList();
+
+			return eventResponse;
 		}
 
 	}

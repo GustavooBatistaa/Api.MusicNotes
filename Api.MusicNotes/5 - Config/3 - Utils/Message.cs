@@ -12,6 +12,5 @@
 		public const string Authorized = "Autorizado";
 		public const string InvalidCredentials = "Login ou Senha Inválidos";
 		public const string InvalidPassword = "As senhas não conferem";
-		public const string Sucess = "Inserido com Sucesso";
 	}
 }

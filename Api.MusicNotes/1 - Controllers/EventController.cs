@@ -33,6 +33,14 @@ namespace Api.MusicNotes._1___Controllers
 			return Ok("Inserido com Sucesso!");
 		}
 
+		[HttpGet]
+
+		public async Task<ActionResult<List<EventResponse>>> Get()
+		{
+			var response = await _eventService.GetEvents();
+			return Ok(response);
+		}
+
 	}
 
 }

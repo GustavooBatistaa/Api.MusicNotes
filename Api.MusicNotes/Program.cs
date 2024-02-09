@@ -1,5 +1,8 @@
 using Api.MusicNotes._2___Services;
 using Api.MusicNotes._4___InfraData;
+using Api.MusicNotes._4___InfraData._2___AppSettings;
+using Api.MusicNotes._5___Config._3___Utils;
+using Api.MusicNotes._5___Config._3___Utils._4___AppSettings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +36,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // Adição da dependência do EventService
 builder.Services.AddScoped<EventService>();
+builder.Services.AddScoped<IAppSettings, AppSettings>();
+
+builder.Services.AddScoped<BaseService>();
 
 builder.Services.AddScoped<UserService>();
 

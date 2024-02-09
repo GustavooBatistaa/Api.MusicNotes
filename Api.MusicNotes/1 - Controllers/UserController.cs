@@ -40,7 +40,7 @@ namespace Api.MusicNotes.Controllers
 				return NotFound(new { message = "Dados inválidos" });
 			}
 
-			var user = await _userService.InsertUser(request);
+			var user =  _userService.InsertUser(request);
 
 			
 

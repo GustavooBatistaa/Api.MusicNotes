@@ -9,13 +9,13 @@ namespace Api.MusicNotes._3___Domain._1___Entities
 
 		public EventModel(string name)
 		{
-			Name = name;
+			Description = name;
 		}
 
 		[Display(Name = "Id")]
 		public int Id { get; set; }
 
-		[Display(Name = "Nome")]
-		public string Name { get; set; }
+		[Display(Name = "Descricao")]
+		public string Description { get; set; }
 	}
 }

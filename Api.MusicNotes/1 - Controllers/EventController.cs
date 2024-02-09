@@ -18,26 +18,19 @@ namespace Api.MusicNotes._1___Controllers
 			_eventService = eventService ?? throw new ArgumentNullException(nameof(eventService));
 		}
 
-		
 
-		[HttpPost]
-		public async Task<ActionResult> AddEvent([FromBody] EventInsertDto request)
-		{
-			if (request == null)
-			{
-				return BadRequest("Invalid event data");
-			}
-
-			_eventService.AddEvent(request);
-
-			return Ok("Inserido com Sucesso!");
-		}
 
 		[HttpGet]
-
 		public async Task<ActionResult<List<EventResponse>>> Get()
 		{
 			var response = await _eventService.GetEvents();
+			return Ok(response);
+		}
+
+		[HttpGet("{id}")]
+		public async Task<ActionResult<EventResponse>>Get( int id)
+		{
+			var response = await _eventService.GetEventById(id);
 			return Ok(response);
 		}
 

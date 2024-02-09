@@ -4,6 +4,8 @@
 	{
 
 		public const string Sucess = "Inserido com Sucesso";
+		public const string MessageError = "Dados Inválidos";
+		public const string NotFound = "Não encontrado";
 
 	}
 

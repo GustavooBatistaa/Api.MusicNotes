@@ -34,7 +34,7 @@ namespace Api.MusicNotes._2___Services
 		}
 
 
-		public async Task<object> InsertUser( UserInsertDto request)
+		public object InsertUser( UserInsertDto request)
 		{
 			if( request.Password != request.ConfirmPassword)
 			{
@@ -64,10 +64,7 @@ namespace Api.MusicNotes._2___Services
 
 		
 
-		private bool IsUserValid(UserLoginDto request, User user)
-		{
-			return user != null && request.Email == user.Email && request.Password.EncryptPassword() == user.Password.EncryptPassword();
-		}
+		private bool IsUserValid(UserLoginDto request, User user) => user != null && request.Email == user.Email && request.Password.EncryptPassword() == user.Password.EncryptPassword();
 
 		private UserResponseLogin CreateUserResponseInvalid(string email)
 		{

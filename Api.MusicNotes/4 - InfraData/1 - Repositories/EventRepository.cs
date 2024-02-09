@@ -20,9 +20,9 @@ namespace Api.MusicNotes._4___InfraData
 		{
 			var events = new List<EventModel>
 	{
-		new EventModel { Id = 1, Name = "Culto Oficial" },
-		new EventModel { Id = 2, Name = "Reunião de Jovens e Menores" },
-		new EventModel { Id = 3, Name = "Visita" }
+		new EventModel { Id = 1, Description = "Culto Oficial" },
+		new EventModel { Id = 2, Description = "Reunião de Jovens e Menores" },
+		new EventModel { Id = 3, Description = "Visita" }
 	};
 
 			return events;
@@ -30,29 +30,15 @@ namespace Api.MusicNotes._4___InfraData
 
 		public EventModel GetEventById(int eventId)
 		{
-			return _context.Events.FirstOrDefault(x => x.Id == eventId);
+			var events = new List<EventModel>
+	{
+		new EventModel { Id = 1, Description = "Culto Oficial" },
+		new EventModel { Id = 2, Description = "Reunião de Jovens e Menores" },
+		new EventModel { Id = 3, Description = "Visita" }
+	};
+
+			return events.FirstOrDefault(x => x.Id == eventId);
 		}
 
-		public void AddEvent(EventModel eventModel)
-		{
-			_context.Events.Add(eventModel);
-			_context.SaveChanges();
-		}
-
-		public void UpdateEvent(EventModel eventModel)
-		{
-			_context.Events.Update(eventModel);
-			_context.SaveChanges();
-		}
-
-		public void DeleteEvent(int eventId)
-		{
-			var eventModel = _context.Events.Find(eventId);
-			if (eventModel != null)
-			{
-				_context.Events.Remove(eventModel);
-				_context.SaveChanges();
-			}
-		}
 	}
 }

@@ -17,7 +17,8 @@ namespace Api.MusicNotes._4___InfraData
 		public DbSet<User> Users { get; set; }
 		public DbSet<GroupModel> Groups { get; set; }
 		public DbSet<CorrectionModel> Corrections { get; set; }
-		
-		}
+		public DbSet<FunctionModel> Functions { get; set; }
+
+	}
 	}
 

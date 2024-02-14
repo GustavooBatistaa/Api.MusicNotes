@@ -1,7 +1,4 @@
-﻿using Api.MusicNotes._3___Domain._1___Entities;
-using Api.MusicNotes._3___Domain._2___Enum_s;
-
-namespace Api.MusicNotes._2___Application._2___DTO_s.Correction
+﻿namespace Api.MusicNotes._2___Application._2___DTO_s.Correction
 {
 	public class CorrectionResponse
 	{

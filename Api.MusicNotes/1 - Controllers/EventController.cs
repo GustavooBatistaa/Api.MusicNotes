@@ -1,7 +1,5 @@
 ﻿using Api.MusicNotes._2___Application._2___DTO_s.Events;
 using Api.MusicNotes._2___Services;
-using Api.MusicNotes._3___Domain._1___Entities;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.MusicNotes._1___Controllers

@@ -18,7 +18,7 @@ namespace Api.MusicNotes._4___InfraData
 
 		public List<FunctionModel> Get()
 		{
-			var events = new List<FunctionModel>
+			var list = new List<FunctionModel>
 			{
 		new FunctionModel { Id = 1, Description = "Encarregado Local" },
 		new FunctionModel { Id = 2, Description = "Encarregado Regional" },
@@ -26,7 +26,7 @@ namespace Api.MusicNotes._4___InfraData
 		new FunctionModel { Id = 4, Description = "Candidato" }
 			};
 
-			return events;
+			return list;
 		}
 
 		public FunctionModel GetById(int id)

@@ -4,8 +4,8 @@
 	{
 		public int Id { get; set; }
 		public DateTime OccurrenceDate { get; set; }
-		public int Hymn { get; set; }
-		public string Reason { get; set; }
+		public int HymnId { get; set; }
+		public int ReasonId { get; set; }
 		public string Priority { get; set; }
 		public bool Rehearsed { get; set; }
 		public int GroupId { get; set; }

@@ -16,11 +16,15 @@ namespace Api.MusicNotes._3___Domain._1___Entities
 		[Display(Name = "Data da Ocorrência")]
 		public DateTime OccurrenceDate { get; set; }
 
-		[Display(Name = "Hino")]
-		public int Hymn { get; set; }
+		[Display(Name = "Identificação do Hino")]
+		public int HymnId { get; set; }
 
-		[Display(Name = "Motivo")]
-		public string Reason { get; set; }
+		public virtual HymnModel Hymn { get; set; }
+
+		[Display(Name = "Identificação do Motivo")]
+		public int ReasonId { get; set; }
+
+		public virtual ReasonModel Reason { get; set; }
 
 		[Display(Name = "Prioridade")]
 		public EPriority Priority { get; set; }
@@ -37,11 +41,11 @@ namespace Api.MusicNotes._3___Domain._1___Entities
 		public int EventId { get; set; }
 		public virtual EventModel Event { get; set; }
 
-		public void Insert(DateTime ocurrenceDate, int hymn, string reason , EPriority priority, int groupId, int eventId)
+		public void Insert(DateTime ocurrenceDate, int hymnId, int reasonId , EPriority priority, int groupId, int eventId)
 		{
 			OccurrenceDate = ocurrenceDate;
-			Hymn = hymn;
-			Reason = reason;
+			HymnId = hymnId;
+			ReasonId = reasonId;
 			Priority = priority;
 			GroupId = groupId;
 			EventId = eventId;

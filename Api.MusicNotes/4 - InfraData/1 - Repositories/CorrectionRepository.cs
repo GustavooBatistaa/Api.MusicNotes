@@ -21,8 +21,8 @@ namespace Api.MusicNotes._4___InfraData
 		{
 			var corrections = new List<CorrectionModel>
 			{
-		new CorrectionModel { Id = 1,OccurrenceDate = DateTime.Now,Hymn = 123,Reason = "Erro passagem",Priority = EPriority.Medium ,EventId = 2,GroupId = 3,Rehearsed = false},
-		new CorrectionModel { Id = 2,OccurrenceDate = DateTime.Now,Hymn = 139,Reason = "Erro passagem",Priority = EPriority.High,EventId = 2,GroupId = 3,Rehearsed = false}
+		new CorrectionModel { Id = 1,OccurrenceDate = DateTime.Now,HymnId = 1,ReasonId = 1,Priority = EPriority.Medium ,EventId = 2,GroupId = 3,Rehearsed = false},
+		new CorrectionModel { Id = 2,OccurrenceDate = DateTime.Now,HymnId = 3,ReasonId = 4,Priority = EPriority.High,EventId = 2,GroupId = 3,Rehearsed = false}
 			};
 
 			return corrections;
@@ -32,8 +32,8 @@ namespace Api.MusicNotes._4___InfraData
 		{
 			var corrections = new List<CorrectionModel>
 			{
-		new CorrectionModel { Id = 1,OccurrenceDate = DateTime.Now,Hymn = 123,Reason = "Erro passagem",Priority = EPriority.Medium ,EventId = 2,GroupId = 3,Rehearsed = false},
-		new CorrectionModel { Id = 2,OccurrenceDate = DateTime.Now,Hymn = 139,Reason = "Erro passagem",Priority = EPriority.High,EventId = 2,GroupId = 3,Rehearsed = false}
+		new CorrectionModel { Id = 1,OccurrenceDate = DateTime.Now,HymnId = 1,ReasonId = 1,Priority = EPriority.Medium ,EventId = 2,GroupId = 3,Rehearsed = false},
+		new CorrectionModel { Id = 2,OccurrenceDate = DateTime.Now,HymnId = 3,ReasonId = 4,Priority = EPriority.High,EventId = 2,GroupId = 3,Rehearsed = false}
 			};
 
 			return corrections.FirstOrDefault(x => x.Id == id);

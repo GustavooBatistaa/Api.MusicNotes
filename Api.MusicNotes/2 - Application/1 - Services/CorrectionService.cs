@@ -31,8 +31,8 @@ namespace Api.MusicNotes._2___Services
 				{
 					Id = modelsItem.Id,
 					OccurrenceDate = modelsItem.OccurrenceDate,
-					Hymn = modelsItem.Hymn,
-					Reason = modelsItem.Reason,
+					HymnId = modelsItem.HymnId,
+					ReasonId = modelsItem.ReasonId,
 					Priority = modelsItem.Priority.GetDescription(), 
 					Rehearsed = modelsItem.Rehearsed,
 					GroupId = modelsItem.GroupId,
@@ -67,9 +67,9 @@ namespace Api.MusicNotes._2___Services
 					Rehearsed = model.Rehearsed,
 					EventId = model.EventId,
 					GroupId = model.GroupId,
-					Hymn = model.Hymn,
+					HymnId = model.HymnId,
 					OccurrenceDate = model.OccurrenceDate,
-					Reason = model.Reason,
+					ReasonId = model.ReasonId,
 					Priority = model.Priority.GetDescription()
 				};
 

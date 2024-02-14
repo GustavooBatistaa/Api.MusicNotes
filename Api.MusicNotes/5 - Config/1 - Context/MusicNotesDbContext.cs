@@ -16,6 +16,7 @@ namespace Api.MusicNotes._4___InfraData
 		public DbSet<CorrectionModel> Corrections { get; set; }
 		public DbSet<FunctionModel> Functions { get; set; }
 		public DbSet<HymnModel> Hymns { get; set; }
+		public DbSet<ReasonModel> Reasons { get; set; }
 	}
 	}
 

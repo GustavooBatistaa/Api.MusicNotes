@@ -34,7 +34,9 @@ namespace Api.MusicNotes._5___Config._4__DependencyInjectionConfig
 					};
 				});
 
-			// Adição das dependências dos serviços
+			#region dependências 
+
+			#region Services
 			services.AddScoped<EventService>();
 			services.AddScoped<IAppSettings, AppSettings>();
 			services.AddScoped<BaseService>();
@@ -43,15 +45,21 @@ namespace Api.MusicNotes._5___Config._4__DependencyInjectionConfig
 			services.AddScoped<GroupService>();
 			services.AddScoped<CorrectionService>();
 			services.AddScoped<HymnService>();
+			services.AddScoped<ReasonService>();
+			#endregion
 
+			#region Repositories
 			services.AddScoped<EventRepository>();
 			services.AddScoped<UserRepository>();
 			services.AddScoped<FunctionRepository>();
 			services.AddScoped<GroupRepository>();
 			services.AddScoped<CorrectionRepository>();
 			services.AddScoped<HymnRepository>();
+			services.AddScoped<ReasonRepository>();
+			#endregion
+			#endregion
 
-			// Configuração de outros serviços
+			#region Configuração de outros serviços
 			services.AddControllers();
 			services.AddEndpointsApiExplorer();
 			services.AddSwaggerGen(c =>
@@ -71,6 +79,7 @@ namespace Api.MusicNotes._5___Config._4__DependencyInjectionConfig
 				var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 				// c.IncludeXmlComments(xmlPath);
 			});
+			#endregion
 		}
 	}
 }

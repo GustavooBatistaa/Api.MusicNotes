@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Api.MusicNotes._3___Domain._2___Enum_s;
+using System.ComponentModel.DataAnnotations;
 
 namespace Api.MusicNotes._3___Domain._1___Entities
 {
@@ -21,6 +22,9 @@ namespace Api.MusicNotes._3___Domain._1___Entities
 		[Display(Name = "Motivo")]
 		public string Reason { get; set; }
 
+		[Display(Name = "Prioridade")]
+		public EPriority Priority { get; set; }
+
 		[Display(Name = "Ensaiado")]
 		public bool Rehearsed { get; set; }
 
@@ -33,11 +37,12 @@ namespace Api.MusicNotes._3___Domain._1___Entities
 		public int EventId { get; set; }
 		public virtual EventModel Event { get; set; }
 
-		public void Insert(DateTime ocurrenceDate, int hymn, string reason, int groupId, int eventId)
+		public void Insert(DateTime ocurrenceDate, int hymn, string reason , EPriority priority, int groupId, int eventId)
 		{
 			OccurrenceDate = ocurrenceDate;
 			Hymn = hymn;
 			Reason = reason;
+			Priority = priority;
 			GroupId = groupId;
 			EventId = eventId;
 		}

@@ -41,11 +41,13 @@ namespace Api.MusicNotes._5___Config._4__DependencyInjectionConfig
 			services.AddScoped<UserService>();
 			services.AddScoped<FunctionService>();
 			services.AddScoped<GroupService>();
+			services.AddScoped<CorrectionService>();
 
 			services.AddScoped<EventRepository>();
 			services.AddScoped<UserRepository>();
 			services.AddScoped<FunctionRepository>();
 			services.AddScoped<GroupRepository>();
+			services.AddScoped<CorrectionRepository>();
 
 			// Configuração de outros serviços
 			services.AddControllers();

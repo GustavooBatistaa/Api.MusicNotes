@@ -19,20 +19,29 @@ namespace Api.MusicNotes._5___Config._4__DependencyInjectionConfig
 			services.AddDbContext<MusicNotesDbContext>(options => options.UseSqlServer(connectionString));
 
 			// Configuração do serviço de autenticação JWT
-			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-				.AddJwtBearer(options =>
+			var key = Encoding.ASCII.GetBytes(Settings.Secret);
+
+			services.AddAuthentication(x =>
+			{
+				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			}).AddJwtBearer(x =>
+			{
+				x.RequireHttpsMetadata = false;
+				x.SaveToken = true;
+				x.TokenValidationParameters = new TokenValidationParameters
 				{
-					options.TokenValidationParameters = new TokenValidationParameters
-					{
-						ValidateIssuer = true,
-						ValidateAudience = true,
-						ValidateLifetime = true,
-						ValidateIssuerSigningKey = true,
-						ValidIssuer = "your_issuer",
-						ValidAudience = "your_audience",
-						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key"))
-					};
-				});
+					ValidateIssuerSigningKey = true,
+					IssuerSigningKey = new SymmetricSecurityKey(key),
+					ValidateIssuer = false,
+					ValidateAudience = false
+				};
+			});
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy("Admin", policy => policy.RequireRole("manager"));
+				options.AddPolicy("Employee", policy => policy.RequireClaim("employe"));
+			});
 
 			#region dependências 
 

@@ -41,6 +41,13 @@ namespace Api.MusicNotes._2___Services
 				return UserLoginMessage.InvalidPassword;
 			}
 
+			var userexists = _repository.GetByEmail(request.Email);
+
+			if (userexists != null)
+			{
+				return UserLoginMessage.EmailExists;
+			}
+
 			var user = new User(request.Name, request.Email, request.Password.EncryptPassword());
 			_repository.AddUser(user);
 			return Message.Sucess;

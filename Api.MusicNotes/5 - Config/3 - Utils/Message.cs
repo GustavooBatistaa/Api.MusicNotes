@@ -14,5 +14,6 @@
 		public const string Authorized = "Autorizado";
 		public const string InvalidCredentials = "Login ou Senha Inválidos";
 		public const string InvalidPassword = "As senhas não conferem";
+		public const string EmailExists = "Já existe uma conta com este email cadastrado";
 	}
 }

@@ -39,8 +39,10 @@ namespace Api.MusicNotes._5___Config._4__DependencyInjectionConfig
 			});
 			services.AddAuthorization(options =>
 			{
-				options.AddPolicy("Admin", policy => policy.RequireRole("manager"));
-				options.AddPolicy("Employee", policy => policy.RequireClaim("employe"));
+				options.AddPolicy("EncarregadoLocal", policy => policy.RequireRole("Encarregado Local"));
+				options.AddPolicy("EncarregadoRegional", policy => policy.RequireRole("Encarregado Regional"));
+				options.AddPolicy("Instrutor", policy => policy.RequireRole("Instrutor"));
+				options.AddPolicy("Aluno", policy => policy.RequireRole("Aluno"));
 			});
 
 			#region dependências 
@@ -56,7 +58,7 @@ namespace Api.MusicNotes._5___Config._4__DependencyInjectionConfig
 			services.AddScoped<HymnService>();
 			services.AddScoped<ReasonService>();
 			#endregion
-
+			
 			#region Repositories
 			services.AddScoped<EventRepository>();
 			services.AddScoped<UserRepository>();

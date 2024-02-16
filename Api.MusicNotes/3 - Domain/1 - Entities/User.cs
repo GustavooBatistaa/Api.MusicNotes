@@ -9,7 +9,7 @@
 			Name = name;
 			Email = email;
 			Password = password;
-			Role = "Manager";
+			Role = "Aluno";
 		}
 
 		public int Id { get;  set; }

@@ -20,7 +20,7 @@ namespace Api.MusicNotes._2___Services
 		{
 			try
 			{
-				var models = _correctionRepository.Get();
+				var models = _correctionRepository.GetAll();
 
 				if (models == null)
 				{

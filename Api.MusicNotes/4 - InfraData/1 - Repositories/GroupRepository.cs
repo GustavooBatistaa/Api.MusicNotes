@@ -13,25 +13,23 @@ namespace Api.MusicNotes._4___InfraData
 
 		public List<GroupModel> Get()
 		{
-			var groups = new List<GroupModel>
-			{
-				new GroupModel { Id = 1, Description = "Orquestra São Tomaz" },
-				new GroupModel { Id = 2, Description = "Orquestra GEM" },
-			};
+            return _context.Groups.ToList();
 
-			return groups;
+       
 		}
 
-		public GroupModel GetById(int id)
-		{
-			var groups = new List<GroupModel>
-			{
-				new GroupModel { Id = 1, Description = "Orquestra São Tomaz" },
-				new GroupModel { Id = 2, Description = "Orquestra GEM" },
-			};
+        public GroupModel GetById(int id)
+        {
+            var model = _context.Groups
+           .FirstOrDefault(x => x.Id == id);
 
-			return groups.FirstOrDefault(x => x.Id == id);
-		}
+            if (model == null)
+            {
+                throw new Exception("Não encontrada");
+            }
 
-	}
+            return model;
+        }
+
+    }
 }

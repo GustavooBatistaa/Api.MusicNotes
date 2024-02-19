@@ -1,43 +1,43 @@
-﻿using Api.MusicNotes._3___Domain._1___Entities;
-using Api.MusicNotes._3___Domain._2___Enum_s;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Api.MusicNotes._3___Domain._1___Entities;
+using Api.MusicNotes._4___InfraData;
+using Microsoft.EntityFrameworkCore;
 
-namespace Api.MusicNotes._4___InfraData
+public class CorrectionRepository
 {
-	public class CorrectionRepository
-	{
-		private readonly MusicNotesDbContext _context;
+    private readonly MusicNotesDbContext _context;
 
-		public CorrectionRepository(MusicNotesDbContext context)
-		{
-			_context = context ?? throw new ArgumentNullException(nameof(context));
-		}
+    public CorrectionRepository(MusicNotesDbContext context)
+    {
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+    }
 
-		public IEnumerable<CorrectionModel> GetAll()
-		{
-			return _context.Corrections.ToList();
-		}
+    public IEnumerable<CorrectionModel> GetAll()
+    {
+        return _context.Corrections
+            .Include(c => c.Reason)
+            .Include(c => c.Event)
+            .Include(c => c.Hymn)
+            .Include(c => c.Group)
+            .ToList();
+    }
 
-		public List<CorrectionModel> Get()
-		{
-			var corrections = new List<CorrectionModel>
-			{
-		new CorrectionModel { Id = 1,OccurrenceDate = DateTime.Now,HymnId = 1,ReasonId = 1,Priority = EPriority.Medium ,EventId = 2,GroupId = 3,Rehearsed = false},
-		new CorrectionModel { Id = 2,OccurrenceDate = DateTime.Now,HymnId = 3,ReasonId = 4,Priority = EPriority.High,EventId = 2,GroupId = 3,Rehearsed = false}
-			};
+    public CorrectionModel GetById(int id)
+    {
+        var correction = _context.Corrections
+            .Include(c => c.Reason)
+            .Include(c => c.Event)
+            .Include(c => c.Hymn)
+            .Include(c => c.Group)
+            .FirstOrDefault(x => x.Id == id);
 
-			return corrections;
-		}
+        if (correction == null)
+        {
+            throw new Exception("Correção não encontrada");
+        }
 
-		public CorrectionModel GetById(int id)
-		{
-			var corrections = new List<CorrectionModel>
-			{
-		new CorrectionModel { Id = 1,OccurrenceDate = DateTime.Now,HymnId = 1,ReasonId = 1,Priority = EPriority.Medium ,EventId = 2,GroupId = 3,Rehearsed = false},
-		new CorrectionModel { Id = 2,OccurrenceDate = DateTime.Now,HymnId = 3,ReasonId = 4,Priority = EPriority.High,EventId = 2,GroupId = 3,Rehearsed = false}
-			};
-
-			return corrections.FirstOrDefault(x => x.Id == id);
-		}
-
-	}
+        return correction;
+    }
 }

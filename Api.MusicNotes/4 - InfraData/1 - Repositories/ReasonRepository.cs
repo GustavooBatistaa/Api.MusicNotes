@@ -11,40 +11,24 @@ namespace Api.MusicNotes._4___InfraData
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 		}
 
-		public IEnumerable<ReasonModel> GetAllEvents()
+		public IEnumerable<ReasonModel> Get()
 		{
 			return _context.Reasons.ToList();
 		}
 
-		public List<ReasonModel> Get()
-		{
-			var list = new List<ReasonModel>
-			{
-				new ReasonModel { Id = 1, Description = "Andamento Rápido" },
-				new ReasonModel { Id = 2, Description = "Andamento Lento" },
-				new ReasonModel { Id = 3, Description = "Passagem para o baixo" },
-				new ReasonModel { Id = 4, Description = "Passagem para o tenor" },
-				new ReasonModel { Id = 5, Description = "Passagem para o contralto" },
-				new ReasonModel { Id = 6, Description = "Pausa para o soprano" }
-			};
-
-			return list;
-		}
 
 		public ReasonModel GetById(int id)
 		{
-			var list = new List<ReasonModel>
-			{
-				new ReasonModel { Id = 1, Description = "Andamento Rápido" },
-				new ReasonModel { Id = 2, Description = "Andamento Lento" },
-				new ReasonModel { Id = 3, Description = "Passagem para o baixo" },
-				new ReasonModel { Id = 4, Description = "Passagem para o tenor" },
-				new ReasonModel { Id = 5, Description = "Passagem para o contralto" },
-				new ReasonModel { Id = 6, Description = "Pausa para o soprano" }
-			};
+            var model = _context.Reasons
+      .FirstOrDefault(x => x.Id == id);
 
-			return list.FirstOrDefault(x => x.Id == id);
-		}
+            if (model == null)
+            {
+                throw new Exception("Não encontrada");
+            }
+
+            return model;
+        }
 
 	}
 }

@@ -11,36 +11,24 @@ namespace Api.MusicNotes._4___InfraData
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 		}
 
-		public IEnumerable<HymnModel> GetAllEvents()
+		public IEnumerable<HymnModel> Get()
 		{
 			return _context.Hymns.ToList();
 		}
 
-		public List<HymnModel> Get()
-		{
-			var list = new List<HymnModel>
-			{
-		new HymnModel { Id = 1, Description = "1 - Cristo, meu Mestre" },
-		new HymnModel { Id = 2, Description = "2 - De Deus tu és eleita" },
-		new HymnModel { Id = 3, Description = "139 - Ó Senhor, Tu me conheces" },
-		new HymnModel { Id = 4, Description = "140 - Sou Feliz" }
-			};
-
-			return list;
-		}
-
+		
 		public HymnModel GetById(int id)
 		{
-			var list = new List<HymnModel>
-			{
-		new HymnModel { Id = 1, Description = "1 - Cristo, meu Mestre" },
-		new HymnModel { Id = 2, Description = "2 - De Deus tu és eleita" },
-		new HymnModel { Id = 3, Description = "139 - Ó Senhor, Tu me conheces" },
-		new HymnModel { Id = 4, Description = "140 - Sou Feliz" }
-			};
+            var model = _context.Hymns
+         .FirstOrDefault(x => x.Id == id);
 
-			return list.FirstOrDefault(x => x.Id == id);
-		}
+            if (model == null)
+            {
+                throw new Exception("Não encontrada");
+            }
+
+            return model;
+        }
 
 	}
 }

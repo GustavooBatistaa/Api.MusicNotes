@@ -23,7 +23,7 @@ namespace Api.MusicNotes._2___Services
 		#region Metodos
 		public async Task<UserResponseLogin> Login(UserLoginDto request)
 		{
-			var user =  _repository.Get(request.Email, request.Password);
+			var user =  _repository.Get(request.Email, request.Password.EncryptPassword());
 
 			if (!IsUserValid(request, user))
 			{
@@ -71,7 +71,7 @@ namespace Api.MusicNotes._2___Services
 
 		
 
-		private bool IsUserValid(UserLoginDto request, User user) => user != null && request.Email == user.Email && request.Password.EncryptPassword() == user.Password.EncryptPassword();
+		private bool IsUserValid(UserLoginDto request, User user) => user != null && request.Email == user.Email && request.Password.EncryptPassword() == user.Password;
 
 		private UserResponseLogin CreateUserResponseInvalid(string email)
 		{

@@ -11,32 +11,23 @@ namespace Api.MusicNotes._4___InfraData
 		{
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 		}
-
-		public User Get(string email, string password)
-		{
-
-			var user = new User { Id = 1, Name = "Gustavo", Email = "gustavobatistaosp@gmail.com", Password = "1122", Role = "Manager" };
-
-
-			return user; /*_context.Users.FirstOrDefault(x => x.Name.ToLower() == userName.ToLower() && x.Password == password);*/
-		}
-
-		public void AddUser(User model)
+        public User Get(string email, string password)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
+            return user;
+        }
+        public void AddUser(User model)
 		{
 			_context.Users.Add(model);
 			_context.SaveChanges();
 		}
 
 
-		public User GetByEmail(string email)
+        public User GetByEmail(string email)
 		{
-			var users = new List<User>
-			{
-				new User { Id = 1, Name = "Gustavo", Email = "gustavobatistaosp@gmail.com", Password = "1122", Role = "Manager" }
-			};
-
-			return users.FirstOrDefault(x => x.Email == email);
-		}
+            var user = _context.Users.FirstOrDefault(x => x.Email == email);
+            return user;
+        }
 
 	}
 

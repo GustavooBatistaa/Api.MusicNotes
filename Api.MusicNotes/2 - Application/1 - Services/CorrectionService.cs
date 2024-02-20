@@ -20,11 +20,11 @@ namespace Api.MusicNotes._2___Services
         }
 
 
-        public async Task<ResultValue> GetAll()
+        public async Task<ResultValue> GetAll( int groupId)
         {
             try
             {
-                var models = _correctionRepository.GetAll();
+                var models = _correctionRepository.GetAll(groupId);
 
                 if (models == null || !models.Any())
                 {

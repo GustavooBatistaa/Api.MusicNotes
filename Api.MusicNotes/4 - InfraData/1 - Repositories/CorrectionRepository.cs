@@ -14,13 +14,14 @@ public class CorrectionRepository
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public IEnumerable<CorrectionModel> GetAll()
+    public IEnumerable<CorrectionModel> GetAll( int groupId)
     {
         return _context.Corrections
             .Include(c => c.Reason)
             .Include(c => c.Event)
             .Include(c => c.Hymn)
             .Include(c => c.Group)
+            .Where(x => x.Group.Id == groupId)
             .ToList();
     }
 

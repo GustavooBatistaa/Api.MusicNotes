@@ -21,15 +21,15 @@ namespace Api.MusicNotes._1___Controllers
 
 
 
-		[HttpGet]
-		public async Task<ActionResult<List<CorrectionResponse>>> Get()
+		[HttpGet("group/{groupId}")]
+		public async Task<ActionResult<List<CorrectionResponse>>> Get(int groupId)
 		{
-			var response = await _correctionService.GetAll();
+			var response = await _correctionService.GetAll(groupId);
 			return Ok(response);
 		}
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult<CorrectionResponse>>Get( int id)
+		public async Task<ActionResult<CorrectionResponse>> GetById( int id)
 		{
             if (id == 0)
             {

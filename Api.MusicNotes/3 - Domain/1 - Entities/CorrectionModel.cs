@@ -5,7 +5,18 @@ namespace Api.MusicNotes._3___Domain._1___Entities
 {
 	public class CorrectionModel
 	{
-		public CorrectionModel()
+        public CorrectionModel(DateTime occurrenceDate, int hymnId, int reasonId, EPriority priority, int groupId, int eventId)
+        {
+            Id = new int();
+            OccurrenceDate = occurrenceDate;
+            HymnId = hymnId;
+            ReasonId = reasonId;
+            Priority = priority;
+            GroupId = groupId;
+            EventId = eventId;
+            Rehearsed = false;
+        }
+        public CorrectionModel()
 		{
 			Id = new int();
 			Rehearsed = false;
@@ -41,14 +52,6 @@ namespace Api.MusicNotes._3___Domain._1___Entities
 		public int EventId { get; set; }
 		public virtual EventModel Event { get; set; }
 
-		public void Insert(DateTime ocurrenceDate, int hymnId, int reasonId , EPriority priority, int groupId, int eventId)
-		{
-			OccurrenceDate = ocurrenceDate;
-			HymnId = hymnId;
-			ReasonId = reasonId;
-			Priority = priority;
-			GroupId = groupId;
-			EventId = eventId;
-		}
+	
 	}
 }

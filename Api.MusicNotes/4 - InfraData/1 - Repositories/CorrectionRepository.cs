@@ -40,4 +40,11 @@ public class CorrectionRepository
 
         return correction;
     }
+
+    public CorrectionModel Insert(CorrectionModel correction)
+    {
+        _context.Corrections.Add(correction);
+        _context.SaveChanges();
+        return correction;
+    }
 }

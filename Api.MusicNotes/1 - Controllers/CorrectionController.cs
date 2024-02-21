@@ -21,14 +21,21 @@ namespace Api.MusicNotes._1___Controllers
 
 
 
-		[HttpGet("group/{groupId}")]
+		[HttpGet("/group/{groupId}")]
 		public async Task<ActionResult<List<CorrectionResponse>>> Get(int groupId)
 		{
 			var response = await _correctionService.GetAll(groupId);
 			return Ok(response);
 		}
 
-		[HttpGet("{id}")]
+        [HttpGet("/rehearsed/group/{groupId}")]
+        public async Task<ActionResult<List<CorrectionResponse>>> GetAllRehearsed(int groupId)
+        {
+            var response = await _correctionService.GetAllRehearsed(groupId);
+            return Ok(response);
+        }
+
+        [HttpGet("/{id}")]
 		public async Task<ActionResult<CorrectionResponse>> GetById( int id)
 		{
             if (id == 0)
@@ -49,6 +56,25 @@ namespace Api.MusicNotes._1___Controllers
             }
 
             var response = await _correctionService.Insert(request);
+            return Ok(response);
+        }
+
+        [HttpPut("/update/{id}")]
+        public async Task<ActionResult> Update(int id, CorrectionUpdate request)
+        {
+            if (request == null)
+            {
+                return BadRequest(Message.MessageError);
+            }
+
+            var response = await _correctionService.Update(id, request);
+            return Ok(response);
+        }
+
+        [HttpPatch("/rehearse/{id}")]
+        public async Task<ActionResult> WentToRehearse(int id)
+        {
+            var response = await _correctionService.WentToRehearse(id);
             return Ok(response);
         }
 

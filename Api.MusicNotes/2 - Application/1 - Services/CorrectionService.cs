@@ -41,6 +41,27 @@ namespace Api.MusicNotes._2___Services
             }
         }
 
+        public async Task<ResultValue> GetAllRehearsed(int groupId)
+        {
+            try
+            {
+                var models = _correctionRepository.GetAllRehearsed(groupId);
+
+                if (models == null || !models.Any())
+                {
+                    return SuccessResponse(Message.NotFound);
+                }
+
+                var response = models.Select(MapToCorrectionResponse).ToList();
+
+                return SuccessResponse(response);
+            }
+            catch (Exception ex)
+            {
+                return ErrorResponse(ex.Message);
+            }
+        }
+
 
 
         public async Task<ResultValue> GetById(int id)
@@ -78,6 +99,49 @@ namespace Api.MusicNotes._2___Services
                 var model = new CorrectionModel(request.OccurrenceDate.Date, request.HymnId, request.ReasonId, request.Priority, request.GroupId, request.EventId);
 
                 _correctionRepository.Insert(model);
+
+                return SuccessResponse(model);
+            }
+            catch (Exception ex)
+            {
+                return ErrorResponse(ex.Message);
+            }
+        }
+
+
+        public async Task<ResultValue> Update(int id, CorrectionUpdate request)
+        {
+            try
+            {
+                var model = _correctionRepository.GetById(id);
+
+                if (model is null)
+                {
+                    return ErrorResponse(Message.NotFound);
+                }
+
+                await _correctionRepository.UpdateAsync(model, request);
+
+               
+                return SuccessResponse(model);
+            }
+            catch (Exception ex)
+            {
+                return ErrorResponse(ex.Message);
+            }
+        }
+
+        public async Task<ResultValue> WentToRehearse(int id)
+        {
+            try
+            {
+                var model = _correctionRepository.GetById(id);
+
+                if (model is null)
+                {
+                    return ErrorResponse(Message.NotFound);
+                }
+               _correctionRepository.WentToRehearse(model);
 
                 return SuccessResponse(model);
             }

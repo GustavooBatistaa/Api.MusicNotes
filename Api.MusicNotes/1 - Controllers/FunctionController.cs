@@ -1,5 +1,6 @@
 ﻿using Api.MusicNotes._2___Application._2___DTO_s.Function;
 using Api.MusicNotes._2___Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.MusicNotes._1___Controllers
@@ -17,16 +18,24 @@ namespace Api.MusicNotes._1___Controllers
 		}
 
 
-
-		[HttpGet]
-		public async Task<ActionResult<List<FunctionResponse>>> Get()
+        /// <summary>
+        ///Lista todos os registros
+        /// </summary>
+        [HttpGet]
+        [Authorize()]
+        public async Task<ActionResult<List<FunctionResponse>>> Get()
 		{
 			var response = await _functionService.GetFunctions();
 			return Ok(response);
 		}
 
-		[HttpGet("{id}")]
-		public async Task<ActionResult<FunctionResponse>>Get( int id)
+        /// <summary>
+        ///Lista um registro por Id
+        /// </summary>
+        /// <param name="id">.</param>
+        [HttpGet("{id}")]
+        [Authorize()]
+        public async Task<ActionResult<FunctionResponse>>Get( int id)
 		{
 			var response = await _functionService.GetFunctionById(id);
 			return Ok(response);

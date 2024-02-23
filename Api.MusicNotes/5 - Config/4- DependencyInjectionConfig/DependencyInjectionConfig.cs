@@ -57,6 +57,7 @@ namespace Api.MusicNotes._5___Config._4__DependencyInjectionConfig
 			services.AddScoped<CorrectionService>();
 			services.AddScoped<HymnService>();
 			services.AddScoped<ReasonService>();
+			services.AddScoped<EmailService>();
 			#endregion
 			
 			#region Repositories

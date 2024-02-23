@@ -13,16 +13,16 @@ namespace Api.MusicNotes._5___Config._3___Utils
 
 
 		public IAppSettings _appSettings;
-		public Guid _currentUserId;
+		public int _currentUserId;
 		#endregion
 
 		#region [ Constructor ]
 
-		public BaseService(IAppSettings appSettings)
+		public BaseService(IAppSettings appSettings) //int currentUserId)
 		{
 			_appSettings = appSettings;
-			//currentUserId = currentUserId;
-		}
+           // _currentUserId = currentUserId;
+        }
 		#endregion
 
 		#region [ Public Methods ]
@@ -30,7 +30,7 @@ namespace Api.MusicNotes._5___Config._3___Utils
 		{
 			return _appSettings.GetHostingEnvironment() == null ? "dev" : _appSettings.GetHostingEnvironment().EnvironmentName;
 		}
-		public Guid GetCurrentUserId() => _currentUserId;
+		public int GetCurrentUserId() => _currentUserId;
 		#endregion
 
 		#region [ Private Methods ]

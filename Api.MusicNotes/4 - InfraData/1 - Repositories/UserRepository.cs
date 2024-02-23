@@ -22,6 +22,11 @@ namespace Api.MusicNotes._4___InfraData
 			_context.SaveChanges();
 		}
 
+        public  void ResetPassword(User model)
+        {
+            _context.Users.Update(model);
+            _context.SaveChanges();
+        }
 
         public User GetByEmail(string email)
 		{

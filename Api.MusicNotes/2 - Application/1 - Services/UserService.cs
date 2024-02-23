@@ -144,6 +144,7 @@ namespace Api.MusicNotes._2___Services
             {
                 Email = user.Email,
                 Token = token,
+                Role = user.Role,
                 Message = UserLoginMessage.Authorized
             };
         }

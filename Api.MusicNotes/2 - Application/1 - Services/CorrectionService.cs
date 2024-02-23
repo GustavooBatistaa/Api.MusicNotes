@@ -86,14 +86,19 @@ namespace Api.MusicNotes._2___Services
         }
 
         public async Task<ResultValue> Insert(CorrectionInsert request)
-
         {
             try
             {
-
                 if (request is null)
                 {
                     return SuccessResponse(Message.MessageError);
+                }
+
+                var existingCorrection = _correctionRepository.GetByHymnId(request.HymnId);
+
+                if (existingCorrection != null)
+                {
+                    request.Priority = EPriority.High;
                 }
 
                 var model = new CorrectionModel(request.OccurrenceDate.Date, request.HymnId, request.ReasonId, request.Priority, request.GroupId, request.EventId);
@@ -107,7 +112,6 @@ namespace Api.MusicNotes._2___Services
                 return ErrorResponse(ex.Message);
             }
         }
-
 
         public async Task<ResultValue> Update(int id, CorrectionUpdate request)
         {

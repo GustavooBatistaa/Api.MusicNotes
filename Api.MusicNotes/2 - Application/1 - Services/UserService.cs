@@ -4,6 +4,7 @@ using Api.MusicNotes._4___InfraData;
 using Api.MusicNotes._5___Config;
 using Api.MusicNotes._5___Config._2___Jwt;
 using Api.MusicNotes._5___Config._3___Utils;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Api.MusicNotes._2___Services
@@ -37,21 +38,24 @@ namespace Api.MusicNotes._2___Services
 
         public async Task<object> InsertUser(UserInsertDto request)
         {
-            if (request.Password != request.ConfirmPassword)
+            try
             {
-                return UserLoginMessage.InvalidPassword;
+                var userExists = await _repository.GetByEmail(request.Email);
+
+                if (userExists != null)
+                {
+                    return UserLoginMessage.EmailExists;
+                }
+
+                var user = new User(request.Name, request.Email, request.Password.EncryptPassword());
+                await _repository.AddUser(user);
+
+                return Message.Success;
             }
-
-            var userExists = await _repository.GetByEmail(request.Email);
-
-            if (userExists != null)
+            catch (Exception ex)
             {
-                return UserLoginMessage.EmailExists;
+                return UserLoginMessage.Error + ex;
             }
-
-            var user = new User(request.Name, request.Email, request.Password.EncryptPassword());
-            await _repository.AddUser(user);
-            return Message.Success;
         }
         #endregion
 
@@ -73,9 +77,9 @@ namespace Api.MusicNotes._2___Services
                 var newPassword = GenerateNewPassword();
                 user.Password = newPassword.EncryptPassword();
 
-             await _repository.ResetPassword(user);
+                await _repository.ResetPassword(user);
 
-              await  _emailService.SendPasswordResetEmailAsync(user.Email, newPassword);
+                await _emailService.SendPasswordResetEmailAsync(user.Email, newPassword);
 
                 return new ResetPasswordResponse
                 {
@@ -88,30 +92,29 @@ namespace Api.MusicNotes._2___Services
                 return new ResetPasswordResponse
                 {
                     Success = false,
-                    Message = "Falha ao redefinir a senha. Por favor, tente novamente mais tarde."
+                    Message = $"Falha ao redefinir a senha. Por favor, tente novamente mais tarde + {ex}."
                 };
             }
         }
-
         public async Task<ResetPasswordResponse> ResetPassword(int userId, UpdatePasswordDto request)
         {
-            var user =  await _repository.GetByEmail(request.Email);
-
-            if (user == null && user.Id != userId)
-            {
-                return new ResetPasswordResponse
-                {
-                    Success = false,
-                    Message = Message.NotFound
-                };
-            }
-
+            
             try
 
             {
+                var user = await _repository.GetByEmail(request.Email);
+
+                if (user == null && user.Id != userId)
+                {
+                    return new ResetPasswordResponse
+                    {
+                        Success = false,
+                        Message = Message.NotFound
+                    };
+                }
                 user.Password = request.Password.EncryptPassword();
 
-                _repository.ResetPassword(user);
+                await _repository.ResetPassword(user);
 
 
 

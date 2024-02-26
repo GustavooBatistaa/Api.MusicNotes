@@ -17,5 +17,6 @@
 		public const string EmailExists = "Já existe uma conta com este email cadastrado";
 		public const string PasswordFailed = "Falha ao redefinir a senha. Por favor, tente novamente mais tarde.";
 		public const string PasswordSuccess = "Senha Alterada com Sucesso!";
+		public const string Error = "Erro!";
 	}
 }

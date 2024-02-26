@@ -38,7 +38,7 @@ namespace Api.MusicNotes.Controllers
                 return NotFound(new { message = "Dados inválidos" });
             }
 
-            var user = _userService.InsertUser(request);
+            var user = await _userService.InsertUser(request);
 
             return Ok(user);
         }
@@ -51,7 +51,7 @@ namespace Api.MusicNotes.Controllers
                 return NotFound(new { message = "Dados inválidos" });
             }
 
-            var user = _userService.RedefinePassword(request);
+            var user = await _userService.RedefinePassword(request); 
 
             return Ok(user);
         }
@@ -65,7 +65,7 @@ namespace Api.MusicNotes.Controllers
                 return NotFound(new { message = "Dados inválidos" });
             }
 
-            var user = _userService.ResetPassword(userId, request);
+            var user = await _userService.ResetPassword(userId, request);
 
             return Ok(user);
         }

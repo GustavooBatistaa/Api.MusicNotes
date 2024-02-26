@@ -35,31 +35,29 @@ namespace Api.MusicNotes._2___Services
             return CreateUserResponseAuthorized(user);
         }
 
-        public object InsertUser(UserInsertDto request)
+        public async Task<object> InsertUser(UserInsertDto request)
         {
             if (request.Password != request.ConfirmPassword)
             {
                 return UserLoginMessage.InvalidPassword;
             }
 
-            var userexists = _repository.GetByEmail(request.Email);
+            var userExists = await _repository.GetByEmail(request.Email);
 
-            if (userexists != null)
+            if (userExists != null)
             {
                 return UserLoginMessage.EmailExists;
             }
 
             var user = new User(request.Name, request.Email, request.Password.EncryptPassword());
-            _repository.AddUser(user);
-            return Message.Sucess;
-
-
+            await _repository.AddUser(user);
+            return Message.Success;
         }
         #endregion
 
-        public ResetPasswordResponse RedefinePassword(ResetPasswordRequest request)
+        public async Task<ResetPasswordResponse> RedefinePassword(ResetPasswordRequest request)
         {
-            var user = _repository.GetByEmail(request.Email);
+            var user = await _repository.GetByEmail(request.Email);
 
             if (user == null)
             {
@@ -75,9 +73,9 @@ namespace Api.MusicNotes._2___Services
                 var newPassword = GenerateNewPassword();
                 user.Password = newPassword.EncryptPassword();
 
-                _repository.ResetPassword(user);
+             await _repository.ResetPassword(user);
 
-                _emailService.SendPasswordResetEmailAsync(user.Email, newPassword);
+              await  _emailService.SendPasswordResetEmailAsync(user.Email, newPassword);
 
                 return new ResetPasswordResponse
                 {
@@ -95,9 +93,9 @@ namespace Api.MusicNotes._2___Services
             }
         }
 
-        public ResetPasswordResponse ResetPassword(int userId, UpdatePasswordDto request)
+        public async Task<ResetPasswordResponse> ResetPassword(int userId, UpdatePasswordDto request)
         {
-            var user = _repository.GetByEmail(request.Email);
+            var user =  await _repository.GetByEmail(request.Email);
 
             if (user == null && user.Id != userId)
             {

@@ -17,21 +17,21 @@ namespace Api.MusicNotes._4___InfraData
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
             return user;
         }
-        public void AddUser(User model)
-		{
-			_context.Users.Add(model);
-			_context.SaveChanges();
-		}
-
-        public  void ResetPassword(User model)
+        public async Task AddUser(User model)
         {
-            _context.Users.Update(model);
+            await _context.Users.AddAsync(model);
             _context.SaveChanges();
         }
 
-        public  User GetByEmail(string email)
+        public async Task ResetPassword(User model)
+        {
+            _context.Users.Update(model);
+           await _context.SaveChangesAsync();
+        }
+
+        public async Task<User> GetByEmail(string email)
 		{
-            var user =  _context.Users.FirstOrDefault(x => x.Email == email);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
             return user;
         }
 

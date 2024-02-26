@@ -3,7 +3,7 @@
 	public class Message
 	{
 
-		public const string Sucess = "Inserido com Sucesso";
+		public const string Success = "Inserido com Sucesso";
 		public const string MessageError = "Dados Inválidos";
 		public const string NotFound = "Não encontrado";
 

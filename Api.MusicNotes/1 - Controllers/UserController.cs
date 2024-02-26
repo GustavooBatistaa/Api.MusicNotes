@@ -30,7 +30,7 @@ namespace Api.MusicNotes.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("/register")]
         public async Task<IActionResult> InsertUser([FromBody] UserInsertDto request)
         {
             if (request == null)

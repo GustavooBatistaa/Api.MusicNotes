@@ -20,7 +20,7 @@ namespace Api.MusicNotes._2___Services
 		{
 			try
 			{
-				var modelList = _reasonRepository.Get();
+				var modelList =await _reasonRepository.GetAll();
 
 				if (modelList == null)
 				{
@@ -47,7 +47,7 @@ namespace Api.MusicNotes._2___Services
 		{
 			try
 			{
-				var model = _reasonRepository.GetById(id);
+				var model = await _reasonRepository.GetById(id);
 
 				if (model is null)
 				{

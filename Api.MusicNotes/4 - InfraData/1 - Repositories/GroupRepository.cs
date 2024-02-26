@@ -1,27 +1,28 @@
 ﻿using Api.MusicNotes._3___Domain._1___Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.MusicNotes._4___InfraData
 {
-	public class GroupRepository
-	{
-		private readonly MusicNotesDbContext _context;
+    public class GroupRepository
+    {
+        private readonly MusicNotesDbContext _context;
 
-		public GroupRepository(MusicNotesDbContext context)
-		{
-			_context = context ?? throw new ArgumentNullException(nameof(context));
-		}
-
-		public List<GroupModel> Get(int userId)
-		{
-            return _context.Groups.Where(x => x.UserId == userId).ToList();
-
-       
-		}
-
-        public GroupModel GetById(int id, int userId)
+        public GroupRepository(MusicNotesDbContext context)
         {
-            var model = _context.Groups
-           .FirstOrDefault(x => x.Id == id && x.UserId == userId);
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
+        public async Task<List<GroupModel>> GetAll(int userId)
+        {
+            return await _context.Groups.Where(x => x.UserId == userId).ToListAsync();
+
+
+        }
+
+        public async Task<GroupModel> GetById(int id, int userId)
+        {
+            var model = await _context.Groups
+           .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
 
             if (model == null)
             {
@@ -30,9 +31,9 @@ namespace Api.MusicNotes._4___InfraData
 
             return model;
         }
-        public GroupModel Insert(GroupModel group)
+        public async Task<GroupModel> Insert(GroupModel group)
         {
-            _context.Groups.Add(group);
+            await _context.Groups.AddAsync(group);
             _context.SaveChanges();
             return group;
         }

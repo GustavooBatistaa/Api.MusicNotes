@@ -22,7 +22,7 @@ namespace Api.MusicNotes._2___Services
         {
             try
             {
-                var groups = _groupRepository.Get(userId);
+                var groups = await _groupRepository.GetAll(userId);
 
                 if (groups == null || !groups.Any())
                 {
@@ -49,7 +49,7 @@ namespace Api.MusicNotes._2___Services
         {
             try
             {
-                var group = _groupRepository.GetById(id, userId);
+                var group = await _groupRepository.GetById(id, userId);
 
                 if (group is null || group.UserId != userId)
                 {
@@ -79,7 +79,7 @@ namespace Api.MusicNotes._2___Services
 
                 var model = new GroupModel(request.Name, request.Description, request.UserId);
 
-                _groupRepository.Insert(model);
+               await _groupRepository.Insert(model);
 
                 return SuccessResponse(model);
             }

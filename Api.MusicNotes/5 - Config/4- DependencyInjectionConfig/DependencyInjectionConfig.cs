@@ -44,11 +44,11 @@ namespace Api.MusicNotes._5___Config._4__DependencyInjectionConfig
 				options.AddPolicy("Instrutor", policy => policy.RequireRole("Instrutor"));
 				options.AddPolicy("Aluno", policy => policy.RequireRole("Aluno"));
 			});
+            services.AddCors();
+            #region dependências 
 
-			#region dependências 
-
-			#region Services
-			services.AddScoped<EventService>();
+            #region Services
+            services.AddScoped<EventService>();
 			services.AddScoped<IAppSettings, AppSettings>();
 			services.AddScoped<BaseService>();
 			services.AddScoped<UserService>();

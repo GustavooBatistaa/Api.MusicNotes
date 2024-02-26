@@ -25,7 +25,7 @@ namespace Api.MusicNotes._2___Services
         #region Metodos
         public async Task<UserResponseLogin> Login(UserLoginDto request)
         {
-            var user = _repository.Get(request.Email, request.Password.EncryptPassword());
+            var user = await _repository.Get(request.Email, request.Password.EncryptPassword());
 
             if (!IsUserValid(request, user))
             {
@@ -34,7 +34,6 @@ namespace Api.MusicNotes._2___Services
 
             return CreateUserResponseAuthorized(user);
         }
-
 
         public object InsertUser(UserInsertDto request)
         {
@@ -96,8 +95,6 @@ namespace Api.MusicNotes._2___Services
             }
         }
 
-       
-
         public ResetPasswordResponse ResetPassword(int userId, UpdatePasswordDto request)
         {
             var user = _repository.GetByEmail(request.Email);
@@ -112,17 +109,18 @@ namespace Api.MusicNotes._2___Services
             }
 
             try
+
             {
                 user.Password = request.Password.EncryptPassword();
 
                 _repository.ResetPassword(user);
 
-             
+
 
                 return new ResetPasswordResponse
                 {
                     Success = true,
-                    Message = "Senha Alterada com Sucesso!"
+                    Message = UserLoginMessage.PasswordSuccess
                 };
             }
             catch (Exception ex)
@@ -130,7 +128,7 @@ namespace Api.MusicNotes._2___Services
                 return new ResetPasswordResponse
                 {
                     Success = false,
-                    Message = "Falha ao redefinir a senha. Por favor, tente novamente mais tarde."
+                    Message = UserLoginMessage.PasswordFailed + ex.Message
                 };
             }
         }

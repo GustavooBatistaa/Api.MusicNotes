@@ -21,7 +21,7 @@ namespace Api.MusicNotes._2___Services
 		{
 			try
 			{
-				var events = _eventRepository.Get();
+				var events = await _eventRepository.Get();
 
 				if (events == null)
 				{
@@ -48,7 +48,7 @@ namespace Api.MusicNotes._2___Services
 		{
 			try
 			{
-				var eventm = _eventRepository.GetEventById(id);
+				var eventm = await _eventRepository.GetEventById(id);
 
 				if (eventm is null)
 				{

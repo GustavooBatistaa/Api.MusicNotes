@@ -20,7 +20,7 @@ namespace Api.MusicNotes._2___Services
 		{
 			try
 			{
-				var modelList = _hymnRepository.Get();
+				var modelList = await _hymnRepository.GetAll();
 
 				if (modelList == null)
 				{
@@ -47,7 +47,7 @@ namespace Api.MusicNotes._2___Services
 		{
 			try
 			{
-				var model = _hymnRepository.GetById(id);
+				var model = await _hymnRepository.GetById(id);
 
 				if (model is null)
 				{

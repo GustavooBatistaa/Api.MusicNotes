@@ -17,22 +17,21 @@ public class CorrectionRepository
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public IEnumerable<CorrectionModel> GetAll(int groupId)
+    public async Task<List<CorrectionModel>> GetAll(int groupId)
     {
-        return _context.Corrections
-         .Include(c => c.Reason)
+        return await _context.Corrections
+             .Include(c => c.Reason)
          .Include(c => c.Event)
          .Include(c => c.Hymn)
          .Include(c => c.Group)
          .Where(x => x.Group.Id == groupId && x.Rehearsed == false)
          .OrderBy(c => c.OccurrenceDate)
          .ThenBy(c => c.Priority == EPriority.High ? 0 : c.Priority == EPriority.Medium ? 1 : 2)
-        .ToList();
+        .ToListAsync();
     }
-
-    public IEnumerable<CorrectionModel> GetAllRehearsed(int groupId)
+    public async Task<List<CorrectionModel>> GetAllRehearsed(int groupId)
     {
-        return _context.Corrections
+        return await _context.Corrections
             .Include(c => c.Reason)
             .Include(c => c.Event)
             .Include(c => c.Hymn)
@@ -40,19 +39,19 @@ public class CorrectionRepository
             .Where(x => x.Group.Id == groupId && x.Rehearsed == true)
              .OrderBy(c => c.OccurrenceDate)
          .ThenBy(c => c.Priority == EPriority.High ? 0 : c.Priority == EPriority.Medium ? 1 : 2)
-        .ToList();
+        .ToListAsync();
     }
 
 
 
-    public CorrectionModel GetById(int id)
+    public async Task<CorrectionModel> GetById(int id)
     {
-        var correction = _context.Corrections
+        var correction = await _context.Corrections
             .Include(c => c.Reason)
             .Include(c => c.Event)
             .Include(c => c.Hymn)
             .Include(c => c.Group)
-            .FirstOrDefault(x => x.Id == id);
+            .FirstOrDefaultAsync(x => x.Id == id);
 
         if (correction == null)
         {
@@ -62,14 +61,14 @@ public class CorrectionRepository
         return correction;
     }
 
-    public CorrectionModel GetByHymnId(int hymnId)
+    public async Task<CorrectionModel> GetByHymnId(int hymnId)
     {
-        var correction = _context.Corrections
+        var correction = await _context.Corrections
             .Include(c => c.Reason)
             .Include(c => c.Event)
             .Include(c => c.Hymn)
             .Include(c => c.Group)
-            .FirstOrDefault(x => x.Hymn.Id == hymnId);
+            .FirstOrDefaultAsync(x => x.Hymn.Id == hymnId);
 
         if (correction == null)
         {
@@ -79,9 +78,9 @@ public class CorrectionRepository
         return correction;
     }
 
-    public CorrectionModel Insert(CorrectionModel correction)
+    public async Task<CorrectionModel> Insert(CorrectionModel correction)
     {
-        _context.Corrections.Add(correction);
+      await  _context.Corrections.AddAsync(correction);
         _context.SaveChanges();
         return correction;
     }
@@ -101,13 +100,13 @@ public class CorrectionRepository
         return model;
     }
 
-    public CorrectionModel WentToRehearse(CorrectionModel model)
+    public async Task<CorrectionModel> WentToRehearse(CorrectionModel model)
     {
 
         model.Rehearsed = true;
 
         _context.Corrections.Update(model);
-        _context.SaveChanges();
+      await  _context.SaveChangesAsync();
 
         return model;
     }

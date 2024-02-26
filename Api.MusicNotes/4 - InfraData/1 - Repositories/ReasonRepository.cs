@@ -1,4 +1,5 @@
 ﻿using Api.MusicNotes._3___Domain._1___Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.MusicNotes._4___InfraData
 {
@@ -11,16 +12,16 @@ namespace Api.MusicNotes._4___InfraData
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 		}
 
-		public IEnumerable<ReasonModel> Get()
+		public async Task<List<ReasonModel>> GetAll()
 		{
-			return _context.Reasons.ToList();
+			return await _context.Reasons.ToListAsync();
 		}
 
 
-		public ReasonModel GetById(int id)
+		public async  Task<ReasonModel> GetById(int id)
 		{
-            var model = _context.Reasons
-      .FirstOrDefault(x => x.Id == id);
+            var model = await _context.Reasons
+      .FirstOrDefaultAsync(x => x.Id == id);
 
             if (model == null)
             {

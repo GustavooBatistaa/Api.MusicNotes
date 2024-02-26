@@ -24,7 +24,7 @@ namespace Api.MusicNotes._2___Services
         {
             try
             {
-                var models = _correctionRepository.GetAll(groupId);
+                var models =  await _correctionRepository.GetAll(groupId);
 
                 if (models == null || !models.Any())
                 {
@@ -45,7 +45,7 @@ namespace Api.MusicNotes._2___Services
         {
             try
             {
-                var models = _correctionRepository.GetAllRehearsed(groupId);
+                var models = await _correctionRepository.GetAllRehearsed(groupId);
 
                 if (models == null || !models.Any())
                 {
@@ -68,7 +68,7 @@ namespace Api.MusicNotes._2___Services
         {
             try
             {
-                var model = _correctionRepository.GetById(id);
+                var model = await _correctionRepository.GetById(id);
 
                 if (model is null)
                 {
@@ -94,7 +94,7 @@ namespace Api.MusicNotes._2___Services
                     return SuccessResponse(Message.MessageError);
                 }
 
-                var existingCorrection = _correctionRepository.GetByHymnId(request.HymnId);
+                var existingCorrection = await _correctionRepository.GetByHymnId(request.HymnId);
 
                 if (existingCorrection != null)
                 {
@@ -103,7 +103,7 @@ namespace Api.MusicNotes._2___Services
 
                 var model = new CorrectionModel(request.OccurrenceDate.Date, request.HymnId, request.ReasonId, request.Priority, request.GroupId, request.EventId);
 
-                _correctionRepository.Insert(model);
+               await _correctionRepository.Insert(model);
 
                 return SuccessResponse(model);
             }
@@ -117,7 +117,7 @@ namespace Api.MusicNotes._2___Services
         {
             try
             {
-                var model = _correctionRepository.GetById(id);
+                var model = await _correctionRepository.GetById(id);
 
                 if (model is null)
                 {
@@ -139,13 +139,13 @@ namespace Api.MusicNotes._2___Services
         {
             try
             {
-                var model = _correctionRepository.GetById(id);
+                var model = await _correctionRepository.GetById(id);
 
                 if (model is null)
                 {
                     return ErrorResponse(Message.NotFound);
                 }
-               _correctionRepository.WentToRehearse(model);
+             await _correctionRepository.WentToRehearse(model);
 
                 return SuccessResponse(model);
             }

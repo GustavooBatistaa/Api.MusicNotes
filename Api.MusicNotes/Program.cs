@@ -19,7 +19,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication(); // Adição do middleware de autenticação JWT
+app.UseAuthentication();
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

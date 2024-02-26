@@ -21,7 +21,7 @@ namespace Api.MusicNotes._2___Services
 		{
 			try
 			{
-				var functions = _functionRepository.Get();
+				var functions = await _functionRepository.Get();
 
 				if (functions == null)
 				{
@@ -48,7 +48,7 @@ namespace Api.MusicNotes._2___Services
 		{
 			try
 			{
-				var function = _functionRepository.GetById(id);
+				var function = await _functionRepository.GetById(id);
 
 				if (function is null)
 				{

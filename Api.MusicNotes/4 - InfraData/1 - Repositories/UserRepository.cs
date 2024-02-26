@@ -1,5 +1,6 @@
 ﻿
 using Api.MusicNotes._3___Domain._1___Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.MusicNotes._4___InfraData
 {
@@ -11,9 +12,9 @@ namespace Api.MusicNotes._4___InfraData
 		{
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 		}
-        public User Get(string email, string password)
+        public async Task<User>  Get(string email, string password)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
             return user;
         }
         public void AddUser(User model)
@@ -28,9 +29,9 @@ namespace Api.MusicNotes._4___InfraData
             _context.SaveChanges();
         }
 
-        public User GetByEmail(string email)
+        public  User GetByEmail(string email)
 		{
-            var user = _context.Users.FirstOrDefault(x => x.Email == email);
+            var user =  _context.Users.FirstOrDefault(x => x.Email == email);
             return user;
         }
 

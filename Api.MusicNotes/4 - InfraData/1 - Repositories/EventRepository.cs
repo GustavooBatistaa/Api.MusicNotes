@@ -12,16 +12,16 @@ namespace Api.MusicNotes._4___InfraData
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public IEnumerable<EventModel> Get()
+        public async Task<List<EventModel>> Get()
         {
-            return _context.Events.ToList();
+            return await _context.Events.ToListAsync();
         }
 
         
-        public EventModel GetEventById(int eventId)
+        public async Task<EventModel> GetEventById(int eventId)
         {
-            var model = _context.Events
-            .FirstOrDefault(x => x.Id == eventId);
+            var model = await _context.Events
+            .FirstOrDefaultAsync(x => x.Id == eventId);
 
             if (model == null)
             {

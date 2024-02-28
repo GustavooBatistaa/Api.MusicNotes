@@ -15,7 +15,7 @@ public class OrganistRepository
 
     public async Task<List<OrganistModel>> GetAll()
     {
-        return await _context.Organists
+        return await _context.Organists.Include(c => c.Congregation)
         .ToListAsync();
     }
 
@@ -28,7 +28,7 @@ public class OrganistRepository
 
     public async Task<OrganistModel> GetById(int id)
     {
-        var correction = await _context.Organists
+        var correction = await _context.Organists.Include(c => c.Congregation)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         return correction;

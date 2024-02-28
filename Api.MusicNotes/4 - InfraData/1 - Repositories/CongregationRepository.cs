@@ -19,6 +19,13 @@ public class CongregationRepository
         .ToListAsync();
     }
 
+    public async Task<List<CongregationModel>> GetAllSector(int sector)
+    {
+        return await _context.Congregations
+            .Where(x => (int)x.Sector == sector)
+            .ToListAsync();
+    }
+
     public async Task<List<CongregationModel>> GetAllSector( ESector sector)
     {
         return await _context.Congregations.Where(x => x.Sector == sector)

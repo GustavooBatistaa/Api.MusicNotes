@@ -1,43 +1,38 @@
-﻿using Api.MusicNotes._2___Application._2___DTO_s.Congregation;
+﻿using Api.MusicNotes._2___Application._2___DTO_s.Activity;
 using Api.MusicNotes._2___Services;
 using Api.MusicNotes._5___Config._3___Utils;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace Api.MusicNotes._1___Controllers
 {
 
     [ApiController]
     [Route("[controller]")]
-    public class CongregationController : ControllerBase
+    public class ActivityController : ControllerBase
     {
-        private readonly CongregationService _service;
+        private readonly ActivityService _service;
 
-        public CongregationController(CongregationService service)
+        public ActivityController(ActivityService service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
 
 
-        [HttpGet()]
+        [HttpGet("/get-list/congregation/{congregationId}")]
         //[Authorize()]
-        public async Task<ActionResult<List<CongregationResponse>>> GetAll()
+        public async Task<ActionResult<List<ActivityResponse>>> GetAll(int congregationId)
         {
-            var response = await _service.GetAll();
+            var response = await _service.GetAllCongregationId(congregationId);
             return Ok(response);
         }
 
-        [HttpGet("/sector")]
-        //[Authorize()]
-        public async Task<ActionResult<List<CongregationResponse>>> GetAllSector(int sector)
-        {
-            var response = await _service.GetAllSector(sector);
-            return Ok(response);
-        }
+        
 
         [HttpGet("{id}")]
         //  [Authorize()]
-        public async Task<ActionResult<CongregationResponse>> Get(int id)
+        public async Task<ActionResult<ActivityResponse>> Get(int id)
         {
             var response = await _service.GetById(id);
             return Ok(response);
@@ -47,9 +42,9 @@ namespace Api.MusicNotes._1___Controllers
         ///Insere um novo registro
         /// </summary>
         /// <param name="request">.</param>
-        [HttpPost()]
+        [HttpPost("insert")]
         //  [Authorize()]
-        public async Task<ActionResult> Insert(CongregationInsert request)
+        public async Task<ActionResult> Insert(ActivityInsert request)
         {
             if (request == null)
             {

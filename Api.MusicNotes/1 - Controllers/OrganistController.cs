@@ -1,10 +1,6 @@
-﻿using Api.MusicNotes._2___Application._2___DTO_s.Congregation;
-using Api.MusicNotes._2___Application._2___DTO_s.Correction;
-using Api.MusicNotes._2___Application._2___DTO_s.Group;
-using Api.MusicNotes._2___Application._2___DTO_s.Organist;
+﻿using Api.MusicNotes._2___Application._2___DTO_s.Organist;
 using Api.MusicNotes._2___Services;
 using Api.MusicNotes._5___Config._3___Utils;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.MusicNotes._1___Controllers

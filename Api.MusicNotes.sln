@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.MusicNotes", "Api.MusicNotes\Api.MusicNotes.csproj", "{42776C5D-AB9E-4AD7-B3B3-24BF4BD9CAD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.MusicNotes", "Api.MusicNotes\Api.MusicNotes.csproj", "{42776C5D-AB9E-4AD7-B3B3-24BF4BD9CAD4}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{FE13BDD9-441F-4F7A-9645-AA9A7C3A22B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,12 @@ Global
 		{42776C5D-AB9E-4AD7-B3B3-24BF4BD9CAD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42776C5D-AB9E-4AD7-B3B3-24BF4BD9CAD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42776C5D-AB9E-4AD7-B3B3-24BF4BD9CAD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE13BDD9-441F-4F7A-9645-AA9A7C3A22B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE13BDD9-441F-4F7A-9645-AA9A7C3A22B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE13BDD9-441F-4F7A-9645-AA9A7C3A22B7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FE13BDD9-441F-4F7A-9645-AA9A7C3A22B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE13BDD9-441F-4F7A-9645-AA9A7C3A22B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE13BDD9-441F-4F7A-9645-AA9A7C3A22B7}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
